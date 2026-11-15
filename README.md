@@ -2,14 +2,12 @@
 
 **Global Solution 2026.2 | FIAP | Pensamento Computacional e Automação com Python**
 
-> **Escopo deste repositório:** implementação acadêmica em Python, executada no terminal, criada para atender aos requisitos da disciplina de Pensamento Computacional e Automação com Python. O **Citizen Assist AI completo** será desenvolvido posteriormente em **outro repositório**, com funcionalidades e interfaces adicionais. Este repositório é a base da entrega desta disciplina, não o produto final.
-
 ## Integrantes
 
 | Integrante | RM |
 | --- | --- |
 | Leonardo Duarte | 569029 |
-| Enzo | 569985 |
+| Enzo de Nadai| 569985 |
 
 ## 1. Público e problema
 
@@ -21,7 +19,7 @@
 
 O programa **não é um canal oficial** e não substitui órgãos públicos, instituições financeiras, serviços de emergência ou profissionais especializados.
 
-## 2. Funcionalidades desta versão
+## 2. Funcionalidades
 
 - Fazer perguntas em texto livre e obter uma orientação cadastrada, com fonte, data de verificação e nível de confiança.
 - Navegar por categorias e selecionar orientações numeradas.
@@ -35,7 +33,7 @@ O programa **não é um canal oficial** e não substitui órgãos públicos, ins
 
 ## 3. Categorias e base de conhecimento
 
-O arquivo `data/base_conhecimento.json` contém **10 orientações**, com no mínimo 3 palavras-chave por orientação, organizadas em três categorias:
+O arquivo `data/base_conhecimento.json` contém **10 orientações**, com no mínimo 3 palavras-chave por orientação, onde organizamos em três categorias:
 
 | Categoria | Quantidade | Exemplos |
 | --- | ---: | --- |
@@ -43,7 +41,7 @@ O arquivo `data/base_conhecimento.json` contém **10 orientações**, com no mí
 | Direitos do Consumidor | 3 | Reclamação de compras, arrependimento e produto não entregue |
 | Serviços Públicos Digitais | 3 | Conta gov.br, Carteira de Trabalho Digital e documentos digitais |
 
-Cada orientação possui os campos: `id`, `categoria`, `titulo`, `palavras_chave`, `resposta`, `documentos`, `onde`, `fonte` e `verificado_em`. O conteúdo deve ser revisto sempre que houver mudanças nos procedimentos oficiais.
+Cada orientação possui os campos: `id`, `categoria`, `titulo`, `palavras_chave`, `resposta`, `documentos`, `onde`, `fonte` e `verificado_em`.
 
 ## 4. Organização dos arquivos
 
@@ -61,7 +59,7 @@ GLOBAL-SOLUTION-02---Citizen-Assist-AI/
     └── base_conhecimento.json
 ```
 
-Os arquivos `data/historico.json`, `data/avaliacoes.json` e `data/atendimentos.csv` são gerados durante o uso e **não devem conter informações reais de identificação pessoal**. O arquivo `.env` é local e não deve ser publicado.
+Os arquivos `data/historico.json`, `data/avaliacoes.json` e `data/atendimentos.csv` são gerados durante o uso e **não devem conter informações reais de identificação pessoal**. O arquivo `.env` é local e não publicamos por conter a chave de API de validação de URL.
 
 ### Orientação a objetos
 
@@ -75,7 +73,7 @@ Há **composição**: o objeto `Assistente` contém uma `BaseConhecimento`, que 
 
 ## 5. Como executar
 
-**Requisitos:** Python 3, Git (para clonar o projeto) e internet apenas para consultar o Google Safe Browsing. Não são necessárias bibliotecas externas para a versão atual.
+**Requisitos:** Python 3, Git (para clonar o projeto) e internet apenas para consultar o Google Safe Browsing. Não são necessárias bibliotecas externas.
 
 Clone o repositório:
 
@@ -203,21 +201,9 @@ Principais referências:
 - [Procon-SP](https://www.procon.sp.gov.br/)
 - [Google Safe Browsing — documentação](https://developers.google.com/safe-browsing/)
 
-## 12. Vídeo técnico e entrega da disciplina
+## 12. Vídeo técnico
 
 **Vídeo técnico (YouTube não listado):** link a adicionar após a gravação.
-
-O vídeo deverá ter de **5 a 8 minutos** e demonstrar: base JSON, dicionários e tuplas, classes e composição, normalização e pontuação, execução de cenários válidos/inválidos, bloqueio de dados pessoais, navegação, inclusão de palavra-chave ao vivo, histórico, CSV, indicadores, decisão técnica e limitação. **Leonardo e Enzo devem participar da explicação.**
-
-A entrega no portal FIAP é um arquivo `.txt` contendo o nome do assistente, público atendido, integrantes e RMs, link do repositório e link do vídeo.
-
-**Prazo informado no enunciado:** 19/11/2026, às 23h59.
-
-## 13. Continuidade do projeto
-
-Este repositório representa **somente a entrega de Pensamento Computacional e Automação com Python**. Depois da entrega, a equipe pretende ampliar o Citizen Assist AI em **outro repositório**, reunindo recursos adicionais do projeto completo.
-
-Possíveis evoluções incluem uma interface gráfica/web, integração com outras disciplinas e aperfeiçoamento da análise de URLs. Esses itens **não fazem parte da implementação atual**.
 
 ---
 
