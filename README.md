@@ -2,6 +2,8 @@
 
 **Global Solution 2026.2 | FIAP | Pensamento Computacional e Automação com Python**
 
+> Neste repositório, nós desenvolvemos a etapa do Citizen Assist AI voltada à disciplina de Python. Nossa proposta completa terá continuidade em outro repositório, depois desta entrega.
+
 ## Integrantes
 
 | Integrante | RM |
@@ -11,11 +13,11 @@
 
 ## 1. Público e problema
 
-**Público-alvo:** cidadãos brasileiros que precisam de orientações acessíveis sobre cidadania digital, especialmente pessoas com pouca familiaridade com serviços digitais.
+**Público-alvo:** escolhemos cidadãos brasileiros que precisam de orientações acessíveis sobre cidadania digital, especialmente pessoas com pouca familiaridade com serviços digitais.
 
-**Problema:** informações sobre golpes virtuais, compras online e serviços públicos digitais estão espalhadas em diferentes canais. Isso dificulta a identificação de orientações confiáveis e pode expor o cidadão a fraudes.
+**Problema que identificamos:** informações sobre golpes virtuais, compras online e serviços públicos digitais estão espalhadas em diferentes canais. Isso dificulta a identificação de orientações confiáveis e pode expor o cidadão a fraudes.
 
-**Proposta:** um assistente simples, em Python, que recebe dúvidas em texto livre, procura orientações em uma base JSON, informa as fontes consultadas e permite verificar links por meio da API Google Safe Browsing.
+**Nossa proposta:** desenvolvemos um assistente simples em Python. Nele, nós recebemos dúvidas em texto livre, buscamos orientações em uma base JSON, mostramos as fontes consultadas e verificamos links por meio da API Google Safe Browsing.
 
 O programa **não é um canal oficial** e não substitui órgãos públicos, instituições financeiras, serviços de emergência ou profissionais especializados.
 
@@ -33,7 +35,7 @@ O programa **não é um canal oficial** e não substitui órgãos públicos, ins
 
 ## 3. Categorias e base de conhecimento
 
-O arquivo `data/base_conhecimento.json` contém **10 orientações**, com no mínimo 3 palavras-chave por orientação, onde organizamos em três categorias:
+Nós organizamos **10 orientações** no arquivo `data/base_conhecimento.json`, com pelo menos 3 palavras-chave por orientação, em três categorias:
 
 | Categoria | Quantidade | Exemplos |
 | --- | ---: | --- |
@@ -69,7 +71,7 @@ Os arquivos `data/historico.json`, `data/avaliacoes.json` e `data/atendimentos.c
 | `BaseConhecimento` | Carregar orientações, listar categorias, pontuar e buscar resultados |
 | `Assistente` | Realizar atendimentos, registrar histórico, calcular indicadores e exportar CSV |
 
-Há **composição**: o objeto `Assistente` contém uma `BaseConhecimento`, que contém uma lista de objetos `Orientacao`. A verificação de URLs está organizada separadamente no arquivo `validador_url.py`.
+Utilizamos **composição**: criamos um objeto `Assistente` que contém uma `BaseConhecimento`, e nela armazenamos uma lista de objetos `Orientacao`. Mantivemos a verificação de URLs separada no arquivo `validador_url.py` para facilitar o entendimento do código.
 
 ## 5. Como executar
 
@@ -107,7 +109,7 @@ python main.py
 
 O assistente de perguntas e categorias funciona sem a chave da API. A opção de verificar URL exige a configuração descrita a seguir.
 
-### Configuração da API (sem publicar a chave)
+### Como utilizamos a API (sem publicar a chave)
 
 1. Crie um projeto no [Google Cloud Console](https://console.cloud.google.com/).
 2. Ative a **Safe Browsing API** e gere uma chave, restringindo-a à API utilizada.
@@ -119,13 +121,15 @@ GOOGLE_SAFE_BROWSING_KEY=COLOQUE_SUA_CHAVE_AQUI
 
 4. Execute novamente `py main.py` e utilize a opção 3.
 
+**Também implementamos uma alternativa para quem não quer criar o `.env`:** se não houver chave configurada, nosso programa solicita que a pessoa digite a própria chave no terminal. Utilizamos `getpass()` para não mostrar o valor digitado na tela. Essa chave manual não é salva pelo programa e pode precisar ser informada novamente em outra consulta.
+
 A implementação também aceita a variável de ambiente `GOOGLE_SAFE_BROWSING_KEY`; caso ela esteja definida, terá prioridade sobre o arquivo `.env`. **Nunca publique uma chave real no código, em prints, no README ou no histórico do Git.** O `.gitignore` protege o arquivo `.env`, mas é preciso conferir os arquivos antes de cada commit.
 
 A integração atual usa o endpoint `threatMatches:find` da **Safe Browsing API v4**, com requisição POST e resposta JSON. É uma integração acadêmica e poderá ser atualizada no projeto futuro.
 
 ## 6. Como a busca funciona
 
-A busca é **baseada em regras, não em uma IA generativa**. As perguntas são comparadas com os títulos e as palavras-chave de cada orientação.
+Nós desenvolvemos uma busca **baseada em regras, não em uma IA generativa**. Comparamos cada pergunta com os títulos e as palavras-chave das orientações, seguindo as regras da disciplina.
 
 1. A função `normalizar()` converte o texto para minúsculas e remove acentos e sinais de pontuação definidos no código.
 2. Cada palavra-chave cadastrada soma **3 pontos** quando todas as suas palavras estão presentes na pergunta, mesmo com outras palavras entre elas.
@@ -140,7 +144,7 @@ A busca é **baseada em regras, não em uma IA generativa**. As perguntas são c
 
 O programa exibe a melhor orientação e até duas alternativas quando disponíveis.
 
-**Melhoria realizada nos testes iniciais:** a busca inicialmente exigia uma expressão exata. Por exemplo, `cancelar compra` não encontrava `Quero cancelar uma compra online`. A regra foi alterada para permitir palavras intermediárias. Essa mudança será demonstrada na apresentação técnica.
+**Melhoria que fizemos nos testes iniciais:** percebemos que nossa busca exigia uma expressão exata. Por exemplo, `cancelar compra` não encontrava `Quero cancelar uma compra online`. Nós modificamos o método de pontuação para aceitar palavras intermediárias. Vamos explicar essa decisão e demonstrá-la no vídeo técnico.
 
 ## 7. Histórico, indicadores e privacidade
 
@@ -158,19 +162,36 @@ O CSV é exportado com `csv.DictWriter` para `data/atendimentos.csv`.
 
 **Privacidade:** o assistente não solicita nome, CPF, telefone ou e-mail. Perguntas contendo `@` ou 8 ou mais dígitos são recusadas e não são registradas. Esse filtro é **limitado** e não identifica todos os dados sensíveis; URLs enviadas à API são compartilhadas com o serviço externo. Não insira URLs com senhas, tokens, dados pessoais ou informações confidenciais.
 
-## 8. Testes realizados e testes pendentes
+## 8. Testes e resultados
 
-**Testes iniciais de desenvolvimento realizados:** execução do menu, carregamento das 10 orientações, busca por palavras-chave, navegação por categorias, consulta de URL via API, recusa de entrada com CPF, geração de histórico, indicadores, exportação CSV e avaliação de facilidade.
+Nós testamos, durante o desenvolvimento, o carregamento das 10 orientações, as perguntas em texto livre, a navegação por categorias, a consulta à API Google Safe Browsing, o bloqueio básico de dados pessoais, a gravação do histórico, a exportação CSV e a avaliação de facilidade de uso. Também corrigimos a busca depois de identificarmos perguntas que não eram reconhecidas por causa de palavras intermediárias.
 
-Esses testes iniciais **não substituem** a validação obrigatória com usuários externos.
+### Avaliações de facilidade registradas
 
-**Teste exigido pela disciplina — pendente de consolidação:**
-- Testar com **pelo menos 3 pessoas de fora da equipe**;
-- Somar **10 atendimentos ou mais**;
-- Registrar os indicadores consolidados e dúvidas sem solução, sem guardar nomes nem dados pessoais;
-- Descrever pelo menos uma melhoria feita a partir desse teste.
+No arquivo `data/avaliacoes.json` publicado no GitHub, registramos cinco avaliações:
 
-**Resultados dos testes com usuários externos:** a preencher após os testes.
+| Avaliação | Nota |
+| --- | ---: |
+| 1 | 4 |
+| 2 | 5 |
+| 3 | 5 |
+| 4 | 3 |
+| 5 | 5 |
+| **Média** | **4,4 de 5** |
+
+Calculamos a média somando as cinco notas (22) e dividindo pela quantidade de avaliações (5). **Essas cinco notas não comprovam, por si só, a participação de cinco pessoas diferentes**.
+
+### Indicadores de atendimentos — aguardando consolidação
+
+Ainda não conseguimos consolidar a quantidade de atendimentos, o percentual de respostas encontradas, a taxa de ajuda, o tempo médio, a média de tentativas e a lista completa de dúvidas sem solução a partir de um arquivo publicado. Para isso, precisamos conferir o `data/atendimentos.csv` gerado pelo programa, que ainda não está disponível no repositório remoto.
+
+O enunciado solicita **pelo menos três pessoas de fora da equipe e dez atendimentos ou mais**. Vamos registrar a participação externa e os indicadores somente com base nos testes efetivamente realizados, sem atribuir identidades nem inventar resultados.
+
+### Outros cenários que verificamos
+
+Nós também realizamos testes com perguntas sem resposta, entradas inválidas, CPF e consultas de URL. Em nossos testes iniciais, confirmamos que uma dúvida fora da base aparece na lista de dúvidas sem solução e que uma pergunta com CPF é recusada sem gerar atendimento.
+
+**Melhoria identificada e realizada:** ajustamos o algoritmo de busca para reconhecer conjuntos de palavras mesmo quando o usuário digita termos intermediários. Isso mostrou como os testes nos ajudaram a melhorar o projeto utilizando recursos simples de Python.
 
 ## 9. Limitações e decisões técnicas
 
@@ -182,7 +203,7 @@ Esses testes iniciais **não substituem** a validação obrigatória com usuári
 - O bloqueio de dados pessoais é básico e necessita evolução.
 - A interface é propositalmente **somente terminal**, conforme o foco desta disciplina.
 
-A escolha de manter as classes e a lógica simples permite demonstrar os conceitos de orientação a objetos, listas, dicionários, arquivos, condicionais e laços de repetição estudados nas aulas.
+Nós optamos por manter as classes e a lógica simples para demonstrar os conceitos de orientação a objetos, listas, dicionários, arquivos, condicionais e laços de repetição que estudamos nas aulas. Sabemos que ainda existem melhorias possíveis, mas priorizamos um código que conseguimos entender e explicar.
 
 ## 10. ODS relacionados
 
@@ -201,9 +222,15 @@ Principais referências:
 - [Procon-SP](https://www.procon.sp.gov.br/)
 - [Google Safe Browsing — documentação](https://developers.google.com/safe-browsing/)
 
-## 12. Vídeo técnico
+## 12. Vídeo técnico e próxima entrega
 
-**Vídeo técnico (YouTube não listado):** link a adicionar após a gravação.
+**Nosso vídeo técnico (YouTube não listado):** vamos adicionar o link depois da gravação.
+
+Nós vamos demonstrar as três classes, os atributos, métodos e `self`, a composição, as tuplas retornadas pela busca, a pontuação de uma pergunta real, a navegação, entradas inválidas, o bloqueio de dados pessoais, o histórico, os indicadores e a exportação CSV. Também precisamos mostrar ao vivo a inclusão de uma palavra-chave no JSON e a mudança no resultado de uma busca.
+
+Como a equipe é formada por Leonardo Duarte e Enzo de Nadai, **nós dois participaremos da explicação técnica**. O vídeo deverá durar entre 5 e 8 minutos.
+
+Este repositório representa **apenas a etapa de Python**. Nós pretendemos continuar o Citizen Assist AI em outro repositório, com novas funcionalidades e, futuramente, interface gráfica.
 
 ---
 
