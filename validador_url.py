@@ -3,6 +3,7 @@ import json
 from urllib.request import Request, urlopen
 from urllib.parse import urlparse
 from urllib.error import HTTPError, URLError
+from getpass import getpass
 
 def carregar_chave():
     caminho = os.path.join(os.path.dirname(__file__), ".env")
@@ -23,8 +24,14 @@ def verificar_url(url):
     chave_api = os.getenv("GOOGLE_SAFE_BROWSING_KEY") or carregar_chave()
 
     if not chave_api:
-        print("Erro: chave da API não configurada.")
-        return
+        print("\nChave do Google Safe Browsing não encontrada.")
+        print("Informe sua chave para utilizar o verificador.")
+
+        chave_api = getpass("Chave da API: ").strip()
+
+        if not chave_api:
+            print("Nenhuma chave informada.")
+            return
 
     url = url.strip()
     endereco = urlparse(url)
