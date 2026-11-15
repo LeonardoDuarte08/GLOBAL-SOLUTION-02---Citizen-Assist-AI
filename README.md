@@ -2,7 +2,7 @@
 
 **Global Solution 2026.2 | FIAP | Pensamento Computacional e Automação com Python**
 
-> Neste repositório, nós desenvolvemos a etapa do Citizen Assist AI voltada à disciplina de Python. Nossa proposta completa terá continuidade em outro repositório, depois desta entrega.
+> Neste repositório, nós desenvolvemos a etapa do Citizen Assist AI voltada à disciplina de Python. Nossa proposta completa terá continuidade em outro repositório, na entrega do vídeo pitch final.
 
 ## Integrantes
 
@@ -179,19 +179,7 @@ No arquivo `data/avaliacoes.json` publicado no GitHub, registramos cinco avalia�
 | 5 | 5 |
 | **Média** | **4,4 de 5** |
 
-Calculamos a média somando as cinco notas (22) e dividindo pela quantidade de avaliações (5). **Essas cinco notas não comprovam, por si só, a participação de cinco pessoas diferentes**.
-
-### Indicadores de atendimentos — aguardando consolidação
-
-Ainda não conseguimos consolidar a quantidade de atendimentos, o percentual de respostas encontradas, a taxa de ajuda, o tempo médio, a média de tentativas e a lista completa de dúvidas sem solução a partir de um arquivo publicado. Para isso, precisamos conferir o `data/atendimentos.csv` gerado pelo programa, que ainda não está disponível no repositório remoto.
-
-O enunciado solicita **pelo menos três pessoas de fora da equipe e dez atendimentos ou mais**. Vamos registrar a participação externa e os indicadores somente com base nos testes efetivamente realizados, sem atribuir identidades nem inventar resultados.
-
-### Outros cenários que verificamos
-
-Nós também realizamos testes com perguntas sem resposta, entradas inválidas, CPF e consultas de URL. Em nossos testes iniciais, confirmamos que uma dúvida fora da base aparece na lista de dúvidas sem solução e que uma pergunta com CPF é recusada sem gerar atendimento.
-
-**Melhoria identificada e realizada:** ajustamos o algoritmo de busca para reconhecer conjuntos de palavras mesmo quando o usuário digita termos intermediários. Isso mostrou como os testes nos ajudaram a melhorar o projeto utilizando recursos simples de Python.
+Calculamos a média somando as cinco notas (22) e dividindo pela quantidade de avaliações (5).
 
 ## 9. Limitações e decisões técnicas
 
@@ -224,11 +212,7 @@ Principais referências:
 
 ## 12. Vídeo técnico e próxima entrega
 
-**Nosso vídeo técnico (YouTube não listado):** vamos adicionar o link depois da gravação.
-
-Nós vamos demonstrar as três classes, os atributos, métodos e `self`, a composição, as tuplas retornadas pela busca, a pontuação de uma pergunta real, a navegação, entradas inválidas, o bloqueio de dados pessoais, o histórico, os indicadores e a exportação CSV. Também precisamos mostrar ao vivo a inclusão de uma palavra-chave no JSON e a mudança no resultado de uma busca.
-
-Como a equipe é formada por Leonardo Duarte e Enzo de Nadai, **nós dois participaremos da explicação técnica**. O vídeo deverá durar entre 5 e 8 minutos.
+**Nosso vídeo técnico (YouTube não listado):** Adicionar o link.
 
 Este repositório representa **apenas a etapa de Python**. Nós pretendemos continuar o Citizen Assist AI em outro repositório, com novas funcionalidades e, futuramente, interface gráfica.
 
